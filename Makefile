@@ -1,13 +1,19 @@
-all: get-deps compile
+PROJECT = qdate
 
-get-deps:
-	./rebar get-deps
+# Options.
 
-compile:
-	./rebar compile
+ERLC_OPTS ?= -Werror +debug_info
 
-test: get-deps compile
-	./rebar skip_deps=true eunit
+# Dependencies.
 
-run:
-	erl -pa ebin/ deps/*/ebin/ -eval "application:start(qdate)"
+DEPS = erlware_commons erlang_localtime
+
+V =
+
+dep_erlware_commons = https://github.com/erlware/erlware_commons.git master
+dep_erlang_localtime = https://github.com/desoulter/erlang_localtime.git relx
+
+
+# Standard targets.
+
+include erlang.mk
